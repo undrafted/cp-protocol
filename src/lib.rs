@@ -38,9 +38,8 @@ impl Proof {
         return &self.q - (c * x - k).modpow(&BigUint::from(1u32), &self.q);
     }
 
-    // n^exp mod p
-    pub fn exponentiate(n: &BigUint, exp: &BigUint, p: &BigUint) -> BigUint {
-        n.modpow(exp, p)
+    pub fn create_pair(n: &BigUint, m: &BigUint, exp: &BigUint, p: &BigUint) -> [BigUint; 2] {
+        [n.modpow(exp, p), m.modpow(exp, p)]
     }
 
     pub fn generate_random_less_than(limit: &BigUint) -> BigUint {
