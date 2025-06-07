@@ -80,11 +80,11 @@ fn test_1024_bits() {
 
     // alpha^x is also a generator of the group
     // any element of the group elevated to x is also a generator
-    let beta = alpha.modpow(&Proof::generate_random_below(&q), &p);
+    let beta = alpha.modpow(&Proof::generate_random_number_below(&q), &p);
 
-    let x = &Proof::generate_random_below(&q);
-    let k = &Proof::generate_random_below(&q);
-    let c = &Proof::generate_random_below(&q);
+    let x = &Proof::generate_random_number_below(&q);
+    let k = &Proof::generate_random_number_below(&q);
+    let c = &Proof::generate_random_number_below(&q);
 
     let proof = Proof::new(p, q, alpha, beta);
 
@@ -119,11 +119,11 @@ fn test_2048_bits() {
 
     // alpha^x is also a generator of the group
     // any element of the group elevated to x is also a generator
-    let beta = alpha.modpow(&Proof::generate_random_below(&q), &p);
+    let beta = alpha.modpow(&Proof::generate_random_number_below(&q), &p);
 
-    let x = &Proof::generate_random_below(&q);
-    let k = &Proof::generate_random_below(&q);
-    let c = &Proof::generate_random_below(&q);
+    let x = &Proof::generate_random_number_below(&q);
+    let k = &Proof::generate_random_number_below(&q);
+    let c = &Proof::generate_random_number_below(&q);
 
     let proof = Proof::new(p, q, alpha, beta);
 
