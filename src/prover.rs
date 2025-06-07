@@ -25,6 +25,8 @@ async fn main() {
         .expect("Could not get the identifier from stdin");
     let identifier = buffer.trim().to_string();
 
+    buffer.clear();
+
     println!("Please provide the password:");
     stdin()
         .read_line(&mut buffer)
