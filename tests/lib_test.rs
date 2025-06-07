@@ -12,19 +12,14 @@ fn test() {
     let k = BigUint::from(7u32);
     let c = BigUint::from(4u32);
 
-    let proof = Proof {
-        p: p.clone(),
-        q: q.clone(),
-        alpha: alpha.clone(),
-        beta: beta.clone(),
-    };
+    let proof = Proof::new(p, q, alpha, beta);
 
-    let [y1, y2] = Proof::create_pair(&alpha, &beta, &x, &p);
+    let [y1, y2] = proof.create_pair(&x);
 
     assert_eq!(y1, BigUint::from(2u32));
     assert_eq!(y2, BigUint::from(3u32));
 
-    let [r1, r2] = Proof::create_pair(&alpha, &beta, &k, &p);
+    let [r1, r2] = proof.create_pair(&k);
 
     assert_eq!(r1, BigUint::from(8u32));
     assert_eq!(r2, BigUint::from(4u32));
@@ -49,22 +44,17 @@ fn test_rand() {
     let p = BigUint::from(23u32);
     let q = BigUint::from(11u32);
     let x = BigUint::from(6u32);
-    let k = Proof::generate_random_less_than(&q);
-    let c = Proof::generate_random_less_than(&q);
+    let proof = Proof::new(p, q, alpha, beta);
 
-    let proof = Proof {
-        p: p.clone(),
-        q: q.clone(),
-        alpha: alpha.clone(),
-        beta: beta.clone(),
-    };
+    let k = proof.generate_random();
+    let c = proof.generate_random();
 
-    let [y1, y2] = Proof::create_pair(&alpha, &beta, &x, &p);
+    let [y1, y2] = proof.create_pair(&x);
 
     assert_eq!(y1, BigUint::from(2u32));
     assert_eq!(y2, BigUint::from(3u32));
 
-    let [r1, r2] = Proof::create_pair(&alpha, &beta, &k, &p);
+    let [r1, r2] = proof.create_pair(&k);
 
     let s = proof.solve(&k, &c, &x);
 

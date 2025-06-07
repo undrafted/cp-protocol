@@ -2,13 +2,17 @@ use num_bigint::{BigUint, RandBigInt};
 use rand;
 
 pub struct Proof {
-    pub p: BigUint,     // prime modulus
-    pub q: BigUint,     // order of the group
-    pub alpha: BigUint, // generator of the group
-    pub beta: BigUint,  // generator of the group
+    p: BigUint,     // prime modulus
+    q: BigUint,     // order of the group
+    alpha: BigUint, // generator of the group
+    beta: BigUint,  // generator of the group
 }
 
 impl Proof {
+    pub fn new(p: BigUint, q: BigUint, alpha: BigUint, beta: BigUint) -> Self {
+        Proof { p, q, alpha, beta }
+    }
+
     // r1 == alpha^s * y1^c
     // r2 == beta^s * y2^c
     pub fn verify(
@@ -38,12 +42,15 @@ impl Proof {
         return &self.q - (c * x - k).modpow(&BigUint::from(1u32), &self.q);
     }
 
-    pub fn create_pair(n: &BigUint, m: &BigUint, exp: &BigUint, p: &BigUint) -> [BigUint; 2] {
-        [n.modpow(exp, p), m.modpow(exp, p)]
+    pub fn create_pair(&self, exp: &BigUint) -> [BigUint; 2] {
+        [
+            self.alpha.modpow(exp, &self.p),
+            self.beta.modpow(exp, &self.p),
+        ]
     }
 
-    pub fn generate_random_less_than(limit: &BigUint) -> BigUint {
+    pub fn generate_random(&self) -> BigUint {
         let mut rng = rand::thread_rng();
-        rng.gen_biguint_below(limit)
+        rng.gen_biguint_below(&self.q)
     }
 }
