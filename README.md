@@ -1,1 +1,1 @@
-Chaum Pedersen protocol
+Chaum-Pedersen protocol
