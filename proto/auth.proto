@@ -1,0 +1,41 @@
+syntax = "proto3";
+package auth;
+
+
+message RegisterRequest {
+    string identifier = 1;
+    bytes y1 = 2; // y1 = alpha^x mod p
+    bytes y2 = 3; // y2 = beta^x mod p
+}
+
+message RegisterResponse {}
+
+
+message AuthenticationChallengeRequest {
+    string identifier = 1; // Identifier of the user
+    bytes r1 = 2; // r1 = alpha^k mod p
+    bytes r2 = 3; // r2 = beta^k mod p
+    string session_id = 4; // Unique session identifier
+}
+
+message AuthenticationChallengeResponse {
+    string auth_id = 1;
+    bytes c = 2; // Challenge value
+}
+
+
+message AuthenticationAnswerRequest {
+    string auth_id = 1;
+    bytes s = 2; // s = k - c * x mod q
+}
+
+// Response after verifying the authentication answer
+message AuthenticationAnswerResponse {
+    string session_id = 1; // Unique session identifier
+}
+
+service Auth {
+    rpc Register(RegisterRequest) returns (RegisterResponse) {}
+    rpc CreateAuthenticationChallenge(AuthenticationChallengeRequest) returns (AuthenticationChallengeResponse) {}
+    rpc VerifyAuthentication(AuthenticationAnswerRequest) returns (AuthenticationAnswerResponse) {}
+}
