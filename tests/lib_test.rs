@@ -47,8 +47,8 @@ fn test_rand() {
     let x = BigUint::from(6u32);
     let proof = Proof::new(p, q, alpha, beta);
 
-    let k = proof.generate_random();
-    let c = proof.generate_random();
+    let k = proof.generate_random_number();
+    let c = proof.generate_random_number();
 
     let [y1, y2] = proof.create_pair(&x);
 

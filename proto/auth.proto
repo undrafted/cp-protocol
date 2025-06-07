@@ -15,7 +15,6 @@ message AuthenticationChallengeRequest {
     string identifier = 1; // Identifier of the user
     bytes r1 = 2; // r1 = alpha^k mod p
     bytes r2 = 3; // r2 = beta^k mod p
-    string session_id = 4; // Unique session identifier
 }
 
 message AuthenticationChallengeResponse {

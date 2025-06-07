@@ -62,7 +62,7 @@ impl Proof {
             .collect()
     }
 
-    pub fn generate_random(&self) -> BigUint {
+    pub fn generate_random_number(&self) -> BigUint {
         Proof::generate_random_number_below(&self.q)
     }
 

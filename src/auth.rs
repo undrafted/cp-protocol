@@ -25,9 +25,6 @@ pub struct AuthenticationChallengeRequest {
     /// r2 = beta^k mod p
     #[prost(bytes = "vec", tag = "3")]
     pub r2: ::prost::alloc::vec::Vec<u8>,
-    /// Unique session identifier
-    #[prost(string, tag = "4")]
-    pub session_id: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
