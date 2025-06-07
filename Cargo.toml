@@ -13,3 +13,11 @@ tokio = { version = "1.0", features = ["macros", "rt-multi-thread"] }
 
 [build-dependencies]
 tonic-build = "0.9"
+
+[[bin]]
+name = "prover"
+path = "src/prover.rs"
+
+[[bin]]
+name = "verifier"
+path = "src/verifier.rs"
