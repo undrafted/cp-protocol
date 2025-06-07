@@ -39,7 +39,7 @@ impl Proof {
             return (k - c * x).modpow(&BigUint::from(1u32), &self.q);
         }
 
-        return &self.q - (c * x - k).modpow(&BigUint::from(1u32), &self.q);
+        &self.q - (c * x - k).modpow(&BigUint::from(1u32), &self.q)
     }
 
     pub fn create_pair(&self, exp: &BigUint) -> [BigUint; 2] {
@@ -51,7 +51,7 @@ impl Proof {
 
     pub fn generate_random_number_below(limit: &BigUint) -> BigUint {
         let mut rng = rand::thread_rng();
-        rng.gen_biguint_below(&limit)
+        rng.gen_biguint_below(limit)
     }
 
     pub fn generate_random_string_below(size: usize) -> String {

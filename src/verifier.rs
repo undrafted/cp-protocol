@@ -45,10 +45,12 @@ impl Auth for AuthImpl {
 
         let identifier = request.identifier;
 
-        let mut user_info = UserInfo::default();
-        user_info.identifier = identifier.clone();
-        user_info.y1 = BigUint::from_bytes_be(&request.y1);
-        user_info.y2 = BigUint::from_bytes_be(&request.y2);
+        let user_info = UserInfo {
+            identifier: identifier.clone(),
+            y1: BigUint::from_bytes_be(&request.y1),
+            y2: BigUint::from_bytes_be(&request.y2),
+            ..Default::default()
+        };
 
         let user_info_hashmap = &mut self.user_info.lock().unwrap();
         user_info_hashmap.insert(identifier, user_info);
@@ -126,13 +128,10 @@ impl Auth for AuthImpl {
                     session_id: session_id.clone(),
                 }));
             } else {
-                return Err(Status::new(
-                    Code::Unauthenticated,
-                    format!("Verification failed"),
-                ));
+                return Err(Status::new(Code::Unauthenticated, "Verification failed"));
             }
         } else {
-            return Err(Status::new(Code::NotFound, format!("Auth ID not found")));
+            return Err(Status::new(Code::NotFound, "Auth ID not found"));
         }
     }
 }
