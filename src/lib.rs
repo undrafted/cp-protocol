@@ -49,13 +49,12 @@ impl Proof {
         ]
     }
 
-    pub fn generate_random(&self) -> BigUint {
-        let mut rng = rand::thread_rng();
-        rng.gen_biguint_below(&self.q)
-    }
-
     pub fn generate_random_below(limit: &BigUint) -> BigUint {
         let mut rng = rand::thread_rng();
         rng.gen_biguint_below(&limit)
+    }
+
+    pub fn generate_random(&self) -> BigUint {
+        Proof::generate_random_below(&self.q)
     }
 }
