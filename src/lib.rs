@@ -53,4 +53,9 @@ impl Proof {
         let mut rng = rand::thread_rng();
         rng.gen_biguint_below(&self.q)
     }
+
+    pub fn generate_random_below(limit: &BigUint) -> BigUint {
+        let mut rng = rand::thread_rng();
+        rng.gen_biguint_below(&limit)
+    }
 }
