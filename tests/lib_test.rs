@@ -37,3 +37,30 @@ fn test() {
     let result = verify(&r1, &r2, &alpha, &beta, &y1, &y2, &c, &s, &p);
     assert!(!result);
 }
+
+#[test]
+fn test_rand() {
+    let alpha = BigUint::from(4u32);
+    let beta = BigUint::from(9u32);
+    let p = BigUint::from(23u32);
+    let q = BigUint::from(11u32);
+
+    let x = BigUint::from(6u32);
+    let k = generate_random_less_than(&q);
+
+    let c = generate_random_less_than(&q);
+
+    let y1 = exponentiate(&alpha, &x, &p);
+    let y2 = exponentiate(&beta, &x, &p);
+
+    assert_eq!(y1, BigUint::from(2u32));
+    assert_eq!(y2, BigUint::from(3u32));
+
+    let r1 = exponentiate(&alpha, &k, &p);
+    let r2 = exponentiate(&beta, &k, &p);
+
+    let s = solve(&k, &c, &x, &q);
+
+    let result = verify(&r1, &r2, &alpha, &beta, &y1, &y2, &c, &s, &p);
+    assert!(result);
+}

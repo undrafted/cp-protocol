@@ -1,4 +1,5 @@
-use num_bigint::BigUint;
+use num_bigint::{BigUint, RandBigInt};
+use rand;
 
 // r1 == alpha^s * y1^c
 // r2 == beta^s * y2^c
@@ -31,4 +32,9 @@ pub fn solve(k: &BigUint, c: &BigUint, x: &BigUint, q: &BigUint) -> BigUint {
 // n^exp mod p
 pub fn exponentiate(n: &BigUint, exp: &BigUint, p: &BigUint) -> BigUint {
     n.modpow(exp, p)
+}
+
+pub fn generate_random_less_than(limit: &BigUint) -> BigUint {
+    let mut rng = rand::thread_rng();
+    rng.gen_biguint_below(limit)
 }
